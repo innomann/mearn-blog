@@ -5,8 +5,12 @@ const registerUser = (userData,history) => {
     
     axios.post("/api/users/signup",userData)
     .then(res=> {
+        localStorage.setItem(
+            "loginMessage",
+            "Successfully registered. Login to continue"
+        );
         console.log("SuccessuRegisteredUser");
-        history.push("/")
+        history.push("/login")
     })
     .catch(err =>{
         console.log(err)
@@ -14,4 +18,20 @@ const registerUser = (userData,history) => {
 }
  
 export default registerUser
+
+export const loginUser = (userData) => {
+    console.log("gotUserInaAuthActions",userData)
+    axios.post("/api/users/login",userData)
+    .then(res=> {
+        const {token} = res.data
+        console.log("User successiful loggedin",token)
+
+    })
+    .catch(err => {
+        console.log(err.message)
+    })
+
+}
+
+
 
